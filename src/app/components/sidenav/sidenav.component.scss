@@ -1,0 +1,64 @@
+.sidenav {
+  background-color: #212529;
+  color: hsla(0, 0%, 100%, 0.5);
+
+  width: 226px;
+  height: 100vh;
+
+  padding-top: 64px;
+  
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  div {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+    margin-top: 36px;
+
+    a {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      padding-left: 20px;
+
+      cursor: pointer;
+
+      font-size: 20px;
+      font-weight: 450;
+      text-decoration: none;
+
+      color: rgba(168, 168, 168, 0.897);
+    }
+
+    a:hover {
+      color: rgb(228, 228, 228);
+      transform: scale(1.1);
+    }
+
+    p {
+      margin: 0px;
+
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(121, 121, 121, 0.897);
+    }
+  }
+
+  transition: all 0.3s ease-in-out;
+}
+
+.icon {
+  margin-right: 12px;
+}

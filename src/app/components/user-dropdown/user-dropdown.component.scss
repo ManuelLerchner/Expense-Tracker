@@ -1,0 +1,15 @@
+.dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-menu {
+  width: 120px;
+}
+
+.dropdown-menu.show {
+  top: 48px !important;
+  left: -68px !important;
+}

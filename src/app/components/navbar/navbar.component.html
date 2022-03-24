@@ -1,0 +1,14 @@
+<div class="navbar">
+  <p>
+    <mat-icon class="icon">table_chart</mat-icon>
+    Expense-Tracker
+  </p>
+
+  <div class="right">
+    <app-user-dropdown></app-user-dropdown>
+
+    <a (click)="onToggleSidenav()" *ngIf="mobileView">
+      <mat-icon class="icon">menu</mat-icon>
+    </a>
+  </div>
+</div>
