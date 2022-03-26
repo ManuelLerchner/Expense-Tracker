@@ -1,9 +1,12 @@
-<mat-card class="item-card">
-  <mat-card-title-group>
-    <mat-card-title>{{ title }}</mat-card-title>
-    <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
-  </mat-card-title-group>
-  <mat-card-content>
+<div class="item-card">
+  <div class="titleGroup">
+    <div class="title">
+      <h3>{{ title }}</h3>
+    </div>
+    <mat-icon class="icon">{{icon}}</mat-icon>
+  </div>
+  <h5>{{ subtitle }}</h5>
+  <div class="content">
     <p>{{ content }}</p>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+.item-card {
+  background-color: rgb(61, 61, 61);
+
+  height: 100%;
+  max-width: 280px;
+
+  color: white;
+  border-radius: 8px;
+  box-shadow: 2px 1px 8px 4px rgba(65, 65, 65, 0.616);
+  //   border-left: 3px solid rgb(202, 248, 37);
+  padding: 1rem;
+
+  .titleGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .title {
+      h3 {
+        font-size: 1.7rem;
+        font-weight: 550;
+        color: rgb(224, 224, 224);
+        margin: 0px;
+        margin-bottom: 12px;
+      }
+    }
+
+    .icon {
+      font-size: 2rem;
+      color: rgb(224, 224, 224);
+    }
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: 450;
+    color: rgb(224, 224, 224);
+  }
+  .content {
+    margin-top: 16px;
+    border-top: 1px solid rgba(224, 224, 224, 0.596);
+    padding-top: 16px;
+    p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgb(224, 224, 224);
+      margin: 0px;
+    }
+  }
+}

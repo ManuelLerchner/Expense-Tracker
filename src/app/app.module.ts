@@ -13,6 +13,8 @@ import { MatCardModule } from '@angular/material/card';
 import { NgChartsModule } from 'ng2-charts';
 import { AddComponent } from './layout/add/add.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ItemCardComponent } from './components/item-card/item-card.component';
     UserDropdownComponent,
     AddComponent,
     ItemCardComponent,
+    LineChartComponent,
+    DoughnutChartComponent,
   ],
   imports: [
     BrowserModule,

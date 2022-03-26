@@ -9,6 +9,7 @@ export class ItemCardComponent implements OnInit {
   @Input() title!: string;
   @Input() subtitle!: string;
   @Input() content!: string;
+  @Input() icon!: string;
 
   constructor() {}
 

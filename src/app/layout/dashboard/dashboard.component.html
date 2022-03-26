@@ -1,65 +1,49 @@
-< class="fullHeight">
-<div class="title">
-  <h1>Dashboard</h1>
-  <h3>Money-Overview & Summary</h3>
-</div>
-
-<div class="dashboard">
-  <div class="cards">
-    <app-item-card
-      class="item-card"
-      [title]="'300€'"
-      [subtitle]="'Monthly-Spending'"
-      [content]="'Increase of 5%'"
-    >
-    </app-item-card>
-
-    <app-item-card
-      class="item-card"
-      [title]="'500€'"
-      [subtitle]="'Total-Spending'"
-      [content]="'10% just in this month'"
-    >
-    </app-item-card>
-
-    <app-item-card
-      class="item-card"
-      [title]="'70€'"
-      [subtitle]="'Biggest-Spending'"
-      [content]="'Dies Das Ananas'"
-    >
-    </app-item-card>
-
-    <app-item-card
-      class="item-card"
-      [title]="'Food'"
-      [subtitle]="'Biggest-Category'"
-      [content]="'20% of all spendings'"
-    >
-    </app-item-card>
+<div class="fullHeight">
+  <div class="title">
+    <h1>Dashboard</h1>
+    <h3>Money-Overview & Summary</h3>
   </div>
 
-  <div class="charts">
-    <div class="chart">
-      <canvas
-        baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="options"
-        [type]="'line'"
+  <div class="dashboard">
+    <div class="cards">
+      <app-item-card
+        [title]="'300€'"
+        [subtitle]="'Monthly-Spending'"
+        [content]="'Increase of 5%'"
+        [icon]="'today'"
       >
-      </canvas>
+      </app-item-card>
+
+      <app-item-card
+        [title]="'500€'"
+        [subtitle]="'Total-Spending'"
+        [content]="'10% just in this month'"
+        [icon]="'calendar_month'"
+      >
+      </app-item-card>
+
+      <app-item-card
+        [title]="'70€'"
+        [subtitle]="'Biggest-Spending'"
+        [content]="'Dies Das Ananas'"
+        [icon]="'shopping_bag'"
+      >
+      </app-item-card>
+
+      <app-item-card
+        [title]="'Food'"
+        [subtitle]="'Biggest-Category'"
+        [content]="'20% of all spendings'"
+        [icon]="'category'"
+      >
+      </app-item-card>
     </div>
 
-    <div class="chart">
-      <canvas
-        baseChart
-        [datasets]="doughnutChartData"
-        [labels]="doughnutChartLabels"
-        [options]="options"
-        [type]="'doughnut'"
-      >
-      </canvas>
+    <div class="charts">
+      <app-line-chart class="lineChart"></app-line-chart>
+      <app-line-chart class="lineChart"></app-line-chart>
+
+      <app-doughnut-chart></app-doughnut-chart>
     </div>
   </div>
 </div>
