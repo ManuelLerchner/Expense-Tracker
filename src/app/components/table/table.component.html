@@ -22,6 +22,45 @@
       <th>Categories</th>
       <th>Actions</th>
     </tr>
+
+    <!--Input-->
+    <tr class="newDataRow">
+      <td><mat-icon class="icon">add</mat-icon></td>
+      <td>
+        <input
+          type="date"
+          name="dateinput"
+          placeholder="-"
+          [(ngModel)]="newData.date"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="descriptioninput"
+          placeholder="Description"
+          [(ngModel)]="newData.description"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          name="amountinput"
+          placeholder="Amount"
+          [(ngModel)]="newData.amount"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="categoriesinput"
+          placeholder="Categories, comma-separated"
+          [(ngModel)]="newData.categories"
+        />
+      </td>
+      <td><button class="add" (click)="addNewData()">Add</button></td>
+    </tr>
+
     <tr *ngFor="let expense of expenses; index as i">
       <td>{{ i + 1 }}</td>
 
@@ -94,44 +133,6 @@
       <td>
         <button class="delete" (click)="deleteRow(i)">Delete</button>
       </td>
-    </tr>
-
-    <!--Input-->
-    <tr class="newDataRow" id="bottom">
-      <td>{{ expenses.length + 1 }}</td>
-      <td>
-        <input
-          type="date"
-          name="dateinput"
-          placeholder="-"
-          [(ngModel)]="newData.date"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          name="descriptioninput"
-          placeholder="Description"
-          [(ngModel)]="newData.description"
-        />
-      </td>
-      <td>
-        <input
-          type="number"
-          name="amountinput"
-          placeholder="Amount"
-          [(ngModel)]="newData.amount"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          name="categoriesinput"
-          placeholder="Categories, comma-separated"
-          [(ngModel)]="newData.categories"
-        />
-      </td>
-      <td><button class="add" (click)="addNewData()">Add</button></td>
     </tr>
   </tbody>
 </table>

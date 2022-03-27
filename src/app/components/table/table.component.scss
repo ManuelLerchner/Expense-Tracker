@@ -21,10 +21,6 @@ th {
   color: white;
 }
 
-.headRow {
-  border-bottom: 2px solid rgb(65, 65, 65);
-}
-
 td {
   border: 1px solid rgb(180, 180, 180);
 
@@ -58,16 +54,17 @@ td {
   scrollbar-width: none; /* Firefox */
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-tr:not(:last-child):hover {
+tr:not(.newDataRow):hover {
   background-color: #e7e7e7;
 }
 
-tr:last-child {
-  border-top: 2px solid rgb(65, 65, 65);
+.newDataRow {
+  border-top: 1px solid rgb(65, 65, 65);
+  border-bottom: 2px solid rgb(65, 65, 65);
 }
 
 .newDataRow {

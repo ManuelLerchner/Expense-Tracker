@@ -20,7 +20,9 @@ import { TableComponent } from './components/table/table.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutComponent } from './layout/about/about.component';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LineChartComponent,
     DoughnutChartComponent,
     TableComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatChipsModule,
     MatInputModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+ 
   ],
   providers: [],
   bootstrap: [AppComponent],
