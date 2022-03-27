@@ -15,7 +15,7 @@ export class SidenavComponent implements OnInit {
       name: 'Main',
       links: [
         { name: 'Dashboard', symbol: 'speed', path: 'dashboard' },
-        { name: 'Add', symbol: 'add', path: 'add' },
+        { name: 'Modify', symbol: 'add', path: 'modify' },
       ],
     },
 

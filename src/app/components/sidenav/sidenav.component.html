@@ -2,7 +2,11 @@
   <div *ngFor="let linkGroup of groups">
     <p>{{ linkGroup.name + ":" }}</p>
 
-    <a *ngFor="let link of linkGroup.links" [routerLink]="link.path">
+    <a
+      *ngFor="let link of linkGroup.links"
+      [routerLink]="link.path"
+      [routerLinkActive]="'active'"
+    >
       <mat-icon class="icon">{{ link.symbol }}</mat-icon>
       {{ link.name }}
     </a>

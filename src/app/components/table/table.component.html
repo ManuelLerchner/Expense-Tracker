@@ -1,0 +1,137 @@
+<table>
+  <colgroup>
+    <col style="width: 5%" />
+    <!-- Nr. -->
+    <col style="width: 15%" />
+    <!-- Date -->
+    <col style="width: 40%" />
+    <!-- Description -->
+    <col style="width: 10%" />
+    <!-- Amount -->
+    <col style="width: 20%" />
+    <!-- Categories -->
+    <col style="width: 10%" />
+    <!-- Actions -->
+  </colgroup>
+  <tbody>
+    <tr class="headRow">
+      <th>Nr.</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Categories</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let expense of expenses; index as i">
+      <td>{{ i + 1 }}</td>
+
+      <!--Date-->
+      <td (click)="enableEditMethod($event, 5 * i + 0)">
+        <div *ngIf="enableEditIdx === 5 * i + 0; else editDate">
+          <input
+            type="date"
+            name="dateinput"
+            placeholder="-"
+            [(ngModel)]="expense.date"
+          />
+        </div>
+        <ng-template #editDate>
+          {{ expense.date | date: "dd.MM.yyyy" }}
+        </ng-template>
+      </td>
+
+      <!--Description-->
+      <td (click)="enableEditMethod($event, 5 * i + 1)">
+        <div *ngIf="enableEditIdx === 5 * i + 1; else editDescription">
+          <input
+            type="text"
+            name="descriptioninput"
+            placeholder="-"
+            [(ngModel)]="expense.description"
+          />
+        </div>
+        <ng-template #editDescription>
+          {{ expense.description }}
+        </ng-template>
+      </td>
+
+      <!--Amount-->
+      <td (click)="enableEditMethod($event, 5 * i + 2)">
+        <div *ngIf="enableEditIdx === 5 * i + 2; else editAmount">
+          <input
+            type="number"
+            name="amountinput"
+            placeholder="-"
+            [(ngModel)]="expense.amount"
+          />
+        </div>
+        <ng-template #editAmount>
+          {{ expense.amount }}
+        </ng-template>
+      </td>
+
+      <!--Categories-->
+      <td (click)="enableEditMethod($event, 5 * i + 4)">
+        <div *ngIf="enableEditIdx === 5 * i + 4; else categoriesType">
+          <input
+            type="text"
+            name="categoriesinput"
+            placeholder="-"
+            [(ngModel)]="expense.categories"
+          />
+        </div>
+        <ng-template #categoriesType>
+          <mat-form-field>
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let category of expense.categories">{{
+                category
+              }}</mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+        </ng-template>
+      </td>
+
+      <td>
+        <button class="delete" (click)="deleteRow(i)">Delete</button>
+      </td>
+    </tr>
+
+    <!--Input-->
+    <tr class="newDataRow" id="bottom">
+      <td>{{ expenses.length + 1 }}</td>
+      <td>
+        <input
+          type="date"
+          name="dateinput"
+          placeholder="-"
+          [(ngModel)]="newData.date"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="descriptioninput"
+          placeholder="Description"
+          [(ngModel)]="newData.description"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          name="amountinput"
+          placeholder="Amount"
+          [(ngModel)]="newData.amount"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="categoriesinput"
+          placeholder="Categories, comma-separated"
+          [(ngModel)]="newData.categories"
+        />
+      </td>
+      <td><button class="add" (click)="addNewData()">Add</button></td>
+    </tr>
+  </tbody>
+</table>

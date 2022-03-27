@@ -20,6 +20,12 @@ export class AppComponent {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.prevWidth = this.innerWidth;
+
+    if (this.innerWidth < 768) {
+      this.mobileView = true;
+      this.sidenavOpen = false;
+    }
+
     this.handleResizeEvent();
   }
 

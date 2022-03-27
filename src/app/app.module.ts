@@ -11,10 +11,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgChartsModule } from 'ng2-charts';
-import { AddComponent } from './layout/add/add.component';
+import { ModifyComponent } from './layout/modify/modify.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { FormsModule } from '@angular/forms';
+import { TableComponent } from './components/table/table.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,10 +28,11 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
     DashboardComponent,
     SidenavComponent,
     UserDropdownComponent,
-    AddComponent,
+    ModifyComponent,
     ItemCardComponent,
     LineChartComponent,
     DoughnutChartComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +41,10 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
     NgbModule,
     MatCardModule,
     NgChartsModule,
+    FormsModule,
+    MatChipsModule,
+    MatInputModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

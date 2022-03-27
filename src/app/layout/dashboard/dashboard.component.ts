@@ -4,7 +4,7 @@ import * as chartjs from 'ng2-charts';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss', '../shared.style.scss'],
   host: {
     class: 'fullWidth',
   },
