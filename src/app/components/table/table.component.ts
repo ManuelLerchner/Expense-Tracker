@@ -38,17 +38,19 @@ export class TableComponent implements OnInit {
   }
 
   enableEditMethod(e: any, i: number) {
+    this.updateRow(this.enableEditIdx);
     this.clickedInsideTable = true;
     this.enableEditIdx = i;
-    console.log(i);
   }
 
   updateRow(i: number) {
-    console.log('updateRow', i);
+    if (i === -1) {
+      return;
+    }
 
     if (i % 5 == 4) {
+      console.log('updateRow', i);
       let idx = Math.floor(i / 5);
-      console.log(this.expenses[idx]);
       this.expenses[idx].categories = this.expenses[idx].categories
         .toString()
         .split(',');
@@ -76,7 +78,7 @@ export class TableComponent implements OnInit {
       description: newDescription,
       amount: newAmount,
       date: newDate,
-      categories: newCategories,
+      categories: newCategories.toString().split(','),
     });
 
     this.newData = {};
