@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -6,47 +7,5 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Expense-Tracker';
-  sidenavOpen = true;
-  mobileView = false;
-
-  prevWidth: number = Infinity;
-  onToggleSidenav() {
-    this.sidenavOpen = !this.sidenavOpen;
-    console.log(this.sidenavOpen);
-  }
-
-  public innerWidth: any;
-  ngOnInit() {
-    this.innerWidth = window.innerWidth;
-    this.prevWidth = this.innerWidth;
-
-    if (this.innerWidth < 768) {
-      this.mobileView = true;
-      this.sidenavOpen = false;
-    }
-
-    this.handleResizeEvent();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.prevWidth = this.innerWidth;
-    this.innerWidth = window.innerWidth;
-    this.handleResizeEvent();
-  }
-
-  handleResizeEvent() {
-    if (this.innerWidth < 768 && this.prevWidth >= 768) {
-      if (this.sidenavOpen) {
-        this.sidenavOpen = false;
-        this.mobileView = true;
-      }
-    } else if (this.innerWidth >= 768 && this.prevWidth < 768) {
-      if (!this.sidenavOpen) {
-        this.sidenavOpen = true;
-        this.mobileView = false;
-      }
-    }
-  }
+  constructor(public accountService: AccountService) {}
 }

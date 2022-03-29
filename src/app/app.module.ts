@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DashboardComponent } from './layout/dashboard/dashboard.component';
+import { DashboardComponent } from './layout/home/dashboard/dashboard.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgChartsModule } from 'ng2-charts';
-import { ModifyComponent } from './layout/modify/modify.component';
+import { ModifyComponent } from './layout/home/modify/modify.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
@@ -20,9 +20,13 @@ import { TableComponent } from './components/table/table.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AboutComponent } from './layout/about/about.component';
+import { AboutComponent } from './layout/home/about/about.component';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MainViewComponent } from './layout/main-view/main-view.component';
+import { LoginComponent } from './layout/login/login.component';
+import { NotFoundComponent } from './layout/not-found/not-found.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +40,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     DoughnutChartComponent,
     TableComponent,
     AboutComponent,
+    MainViewComponent,
+    LoginComponent,
+    NotFoundComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { Expense } from '../../models/Expense';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-add',
@@ -15,6 +8,5 @@ import { Expense } from '../../models/Expense';
 export class ModifyComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

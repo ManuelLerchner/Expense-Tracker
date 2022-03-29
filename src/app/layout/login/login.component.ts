@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
-
-import { AccountService } from '../../services/account.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss', '../shared.style.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class AboutComponent implements OnInit {
-  constructor(private accountService: AccountService) {}
+export class LoginComponent implements OnInit {
+  constructor(private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {}
 
   loginPassword: string = '';
   loginEmail: string = '';
+  loginRememberMe: boolean = false;
 
   registerPassword: string = '';
   registerEmail: string = '';
@@ -23,14 +24,15 @@ export class AboutComponent implements OnInit {
 
   onLogin() {
     this.accountService
-      .login(this.loginEmail, this.loginPassword)
+      .login(this.loginEmail, this.loginPassword, this.loginRememberMe)
       .pipe(first())
       .subscribe({
         next: (data: User) => {
           // get return url from query parameters or default to home page
           console.log('success');
+          this.router.navigate(['/home']);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log('error');
         },
       });
@@ -48,7 +50,7 @@ export class AboutComponent implements OnInit {
         next: () => {
           console.log('success register');
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log('error register');
         },
       });

@@ -1,12 +1,16 @@
-<div class="dropdown">
-  <div ngbDropdown class="d-inline-block">
-    <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
-      <mat-icon class="icon">person</mat-icon>
-    </button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Manuel Lerchner</button>
-      <button ngbDropdownItem>Settings</button>
-      <button ngbDropdownItem>Logout</button>
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+        <mat-icon class="icon">person</mat-icon>
+      </button>
+
+      <div ngbDropdownMenu aria-labelledby="register">
+        <p ngbDropdownItem>
+          Logged in as, <b> {{ accountService.userValue.username }}</b>
+        </p>
+        <button ngbDropdownItem (click)="onLogout()">Logout</button>
+      </div>
     </div>
   </div>
 </div>

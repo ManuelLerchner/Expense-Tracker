@@ -1,5 +1,6 @@
 export interface User {
+  authToken: string;
   id: string;
   email: string;
-  password: string;
+  username: string;
 }
