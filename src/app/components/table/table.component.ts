@@ -22,13 +22,18 @@ export class TableComponent implements OnInit {
 
   @Output() onDelete = new EventEmitter<number>();
   @Output() onUpdate = new EventEmitter<Expense>();
-  @Output() onAdd = new EventEmitter<any>();
+  @Output() onAdd = new EventEmitter<Expense>();
 
-  constructor(
-    private router: Router,
-    private expensesService: ExpensesService
-  ) {}
+  constructor(private expensesService: ExpensesService) {}
   ngOnInit() {}
+
+  newData: StoredExpense = {
+    id: '',
+    description: '',
+    amount: '',
+    date: '',
+    categories: '',
+  };
 
   clickedInsideTable = false;
   enableEditIdx = -1;
@@ -56,32 +61,38 @@ export class TableComponent implements OnInit {
   }
 
   updateRow(rowIdx: number) {
-    let newExpense = this.expensesService.mapToExpense(
+    let updatedExpense = this.expensesService.mapToExpense(
       this.editableExpenses[rowIdx]
     );
 
-    this.onUpdate.emit(newExpense);
+    this.onUpdate.emit(updatedExpense);
   }
 
-  deleteRow(i: number) {
-    this.onDelete.emit(i);
+  deleteRow(rowIdx: number) {
+    this.onDelete.emit(this.editableExpenses[rowIdx].id);
   }
 
   addRow() {
     let newDescription = this.newData.description;
     let newAmount = this.newData.amount;
     let newDate = this.newData.date;
-    let newCategories = this.newData.categories;
 
-    if (!(newDescription && newAmount && newDate && newCategories)) {
-      alert('Please fill all the fields');
+    if (newDescription === '' || newAmount === '' || newDate === '') {
+      alert('Please fill in Date, Description and Amount.');
       return;
     }
 
-    this.onAdd.emit(this.newData);
-
-    this.newData = {};
+    let newExpense = this.expensesService.mapToExpense(this.newData);
+    this.onAdd.emit(newExpense);
   }
 
-  newData: any = {};
+  clearNewData() {
+    this.newData = {
+      id: '',
+      description: '',
+      amount: '',
+      date: '',
+      categories: '',
+    };
+  }
 }

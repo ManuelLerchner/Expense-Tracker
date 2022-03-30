@@ -10,6 +10,8 @@
         [expenses]="expenses"
         [editableExpenses]="editableExpenses"
         (onUpdate)="updateExpense($event)"
+        (onAdd)="addExpense($event)"
+        (onDelete)="deleteExpense($event)"
       ></app-table>
     </div>
   </div>

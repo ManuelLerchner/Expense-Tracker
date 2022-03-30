@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { TableComponent } from 'src/app/components/table/table.component';
 import { Expense } from 'src/app/models/Expense';
 import { StoredExpense } from 'src/app/models/StoredExpense';
 import { ExpensesService } from './../../../services/expenses.service';
@@ -11,6 +12,8 @@ import { ExpensesService } from './../../../services/expenses.service';
 })
 export class ModifyComponent implements OnInit {
   constructor(private expenseService: ExpensesService) {}
+
+  @ViewChild(TableComponent) table!: TableComponent;
 
   expenses: Expense[] = [];
   editableExpenses: Expense[] = [];
@@ -44,6 +47,21 @@ export class ModifyComponent implements OnInit {
     let toUpdate = this.expenseService.convertToStoredExpense(newExpense);
 
     await this.expenseService.updateExpense(toUpdate).toPromise();
+
+    this.loadExpenses();
+  }
+
+  async addExpense(newExpense: Expense) {
+    let toAdd = this.expenseService.convertToStoredExpense(newExpense);
+
+    await this.expenseService.addExpense(toAdd).toPromise();
+
+    this.table.clearNewData();
+    this.loadExpenses();
+  }
+
+  async deleteExpense(id: number) {
+    await this.expenseService.deleteExpense(id).toPromise();
 
     this.loadExpenses();
   }

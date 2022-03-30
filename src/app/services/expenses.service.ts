@@ -41,8 +41,31 @@ export class ExpensesService {
     let currentUser: User = this.accountService.userValue;
 
     return this.http.put(`${environment.apiUrl}/expenses/update`, {
-      user: currentUser,
+      email: currentUser.email,
+      authToken: currentUser.authToken,
       expenseToUpdate: toUpdate,
+    });
+  }
+
+  addExpense(toAdd: StoredExpense) {
+    let currentUser: User = this.accountService.userValue;
+
+    return this.http.post(`${environment.apiUrl}/expenses/add`, {
+      email: currentUser.email,
+      authToken: currentUser.authToken,
+      expenseToAdd: toAdd,
+    });
+  }
+
+  deleteExpense(id: number) {
+    let currentUser: User = this.accountService.userValue;
+
+    return this.http.delete(`${environment.apiUrl}/expenses/delete`, {
+      params: {
+        email: currentUser.email,
+        authToken: currentUser.authToken,
+        idToDelete: id,
+      },
     });
   }
 
