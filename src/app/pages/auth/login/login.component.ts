@@ -28,32 +28,42 @@ export class LoginComponent implements OnInit {
   loginRememberMe: boolean = false;
 
   responseText: string = '';
-  successful: boolean = false;
+  responseStatus: 'error' | 'success' | '' = '';
 
-  onLogin() {
-    this.accountService
-      .login(this.loginEmail, this.loginPassword, this.loginRememberMe)
-      .pipe(first())
-      .subscribe({
-        next: (data: User) => {
-          this.successful = true;
-          this.responseText = 'Login successful';
-          this.router.navigate(['/home']);
-        },
-        error: (error: any) => {
-          console.log(error);
-          this.successful = false;
+  async onLogin() {
+    try {
+      await this.accountService
+        .login(this.loginEmail, this.loginPassword, this.loginRememberMe)
+        .toPromise();
 
-          if (typeof error.error === 'string') {
-            this.responseText = error.error;
-          } else {
-            this.responseText = 'An unknown error occured.';
-          }
-        },
-      });
+      this.responseStatus = 'success';
+      this.responseText = 'Login successful';
+
+      await sleep(500);
+
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      console.log(error);
+
+      this.responseStatus = 'error';
+
+      if (typeof error.error === 'string') {
+        this.responseText = error.error;
+      } else {
+        this.responseText = 'An unknown error occured.';
+      }
+    }
   }
 
   goToSignUp() {
     this.router.navigate(['/register']);
   }
+}
+
+function sleep(time: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
 }

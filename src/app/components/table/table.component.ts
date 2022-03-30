@@ -31,7 +31,7 @@ export class TableComponent implements OnInit {
     id: '',
     description: '',
     amount: '',
-    date: '',
+    date: new Date().toISOString().split('T')[0],
     categories: '',
   };
 
@@ -91,7 +91,7 @@ export class TableComponent implements OnInit {
       id: '',
       description: '',
       amount: '',
-      date: '',
+      date: new Date().toISOString().split('T')[0],
       categories: '',
     };
   }

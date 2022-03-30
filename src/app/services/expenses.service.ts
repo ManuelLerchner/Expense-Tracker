@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -89,7 +90,7 @@ export class ExpensesService {
       amount: storedExpense.amount.toString(),
       description: storedExpense.description,
       categories: storedExpense.categories.filter((c) => c).join(', '),
-      date: new Date(storedExpense.date).toISOString().split('T')[0],
+      date: formatDate(storedExpense.date, 'yyyy-MM-dd', 'en-US'),
     };
   }
 }

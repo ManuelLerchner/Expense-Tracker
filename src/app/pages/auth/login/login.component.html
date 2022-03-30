@@ -48,7 +48,7 @@
         >
           Login
         </button>
-        <p [ngClass]="successful ? 'success' : 'error'">{{ responseText }}</p>
+        <p [ngClass]="responseStatus">{{ responseText }}</p>
       </div>
     </form>
     <div class="dropdown-divider"></div>

@@ -50,7 +50,6 @@ export class AccountService {
     }
   }
 
-  checkIfKeepSignedIn(user: User, returnUrl: string) {}
 
   login(email: string, password: string, rememberMe: boolean) {
     return this.http

@@ -54,21 +54,25 @@ td {
   scrollbar-width: none; /* Firefox */
 }
 
-tr:nth-child(odd) {
+tr:not(.newDataRow):nth-child(odd) {
   background-color: #f2f2f2;
+}
+tr:not(.newDataRow):nth-child(even) {
+  background-color: #fcfcfc;
 }
 
 tr:not(.newDataRow):hover {
-  background-color: #e7e7e7;
-}
-
-.newDataRow {
-  border-top: 1px solid rgb(65, 65, 65);
-  border-bottom: 2px solid rgb(65, 65, 65);
+  background-color: #e2e2e2;
 }
 
 .newDataRow {
   padding-top: 20px;
+  background-color: #e2f4ff8c;
+  border: 1px solid #ddd;
+
+  border-top: 2px solid rgb(65, 65, 65);
+  border-bottom: 2px solid rgb(65, 65, 65);
+
   td {
     input {
       border: none;
@@ -78,6 +82,9 @@ tr:not(.newDataRow):hover {
 
       text-align: center;
     }
+  }
+  input {
+    background-color: transparent;
   }
 }
 
@@ -112,4 +119,3 @@ button {
     background-color: #f01a1a;
   }
 }
-

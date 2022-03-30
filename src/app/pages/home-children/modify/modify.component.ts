@@ -22,47 +22,58 @@ export class ModifyComponent implements OnInit {
     this.loadExpenses();
   }
 
-  loadExpenses() {
-    this.expenseService
-      .getExpensesForCurrentUser()
-      .pipe(first())
-      .subscribe({
-        next: (expenses: Expense[]) => {
-          let sortedExpenses = expenses.sort((a, b) => {
-            return b.date.getTime() - a.date.getTime();
-          });
+  async loadExpenses() {
+    try {
+      let expenses = await this.expenseService
+        .getExpensesForCurrentUser()
+        .toPromise();
 
-          this.expenses = sortedExpenses;
-          this.editableExpenses = sortedExpenses.map((expense) => {
-            return { ...expense };
-          });
-        },
-        error: (error: any) => {
-          console.log(error);
-        },
+      let sortedExpenses = expenses.sort((a, b) => {
+        return b.date.getTime() - a.date.getTime();
       });
+
+      this.expenses = sortedExpenses;
+
+      this.editableExpenses = this.expenses.map((expense) => {
+        return { ...expense, editable: false };
+      });
+    } catch (e: any) {
+      console.log(e.error);
+    }
   }
 
   async updateExpense(newExpense: Expense) {
-    let toUpdate = this.expenseService.convertToStoredExpense(newExpense);
+    try {
+      let toUpdate = this.expenseService.convertToStoredExpense(newExpense);
 
-    await this.expenseService.updateExpense(toUpdate).toPromise();
+      await this.expenseService.updateExpense(toUpdate).toPromise();
 
-    this.loadExpenses();
+      this.loadExpenses();
+    } catch (e: any) {
+      console.log(e.error);
+    }
   }
 
   async addExpense(newExpense: Expense) {
-    let toAdd = this.expenseService.convertToStoredExpense(newExpense);
+    try {
+      let toAdd = this.expenseService.convertToStoredExpense(newExpense);
 
-    await this.expenseService.addExpense(toAdd).toPromise();
+      await this.expenseService.addExpense(toAdd).toPromise();
 
-    this.table.clearNewData();
-    this.loadExpenses();
+      this.table.clearNewData();
+      this.loadExpenses();
+    } catch (e: any) {
+      console.log(e.error);
+    }
   }
 
   async deleteExpense(id: number) {
-    await this.expenseService.deleteExpense(id).toPromise();
+    try {
+      await this.expenseService.deleteExpense(id).toPromise();
 
-    this.loadExpenses();
+      this.loadExpenses();
+    } catch (e: any) {
+      console.log(e.error);
+    }
   }
 }

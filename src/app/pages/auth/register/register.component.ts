@@ -21,9 +21,9 @@ export class RegisterComponent implements OnInit {
   registerRememberMe: boolean = false;
 
   responseText: string = '';
-  successful: boolean = false;
+  responseStatus: 'error' | 'success' | '' = '';
 
-  onRegister() {
+  async onRegister() {
     if (
       !this.registerPassword1 ||
       !this.registerPassword2 ||
@@ -31,61 +31,62 @@ export class RegisterComponent implements OnInit {
       !this.registerUsername
     ) {
       this.responseText = 'Please fill in all fields.';
-      this.successful = false;
+      this.responseStatus = 'error';
       return;
     }
 
     if (this.registerPassword1 !== this.registerPassword2) {
       this.responseText = 'Passwords do not match.';
-      this.successful = false;
+      this.responseStatus = 'error';
       return;
     }
 
-    this.accountService
-      .register(
-        this.registerEmail,
-        this.registerUsername,
-        this.registerPassword1
-      )
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.successful = true;
-          this.responseText = 'Registration successful.';
+    try {
+      await this.accountService
+        .register(
+          this.registerEmail,
+          this.registerUsername,
+          this.registerPassword1
+        )
+        .toPromise();
 
-          this.accountService
-            .login(
-              this.registerEmail,
-              this.registerPassword1,
-              this.registerRememberMe
-            )
-            .pipe(first())
-            .subscribe({
-              next: (data: User) => {
-                this.successful = true;
-                this.responseText = 'Login successful.';
+      this.responseStatus = 'success';
+      this.responseText = 'Registration successful';
 
-                this.router.navigate(['/home']);
-              },
-              error: (error: any) => {
-                console.log(error);
-                this.successful = false;
-                this.responseText = error.error;
-              },
-            });
-        },
-        error: (error: any) => {
-          console.log(error);
-          if (typeof error.error === 'string') {
-            this.responseText = error.error;
-          } else {
-            this.responseText = 'An unknown error occured.';
-          }
-        },
-      });
+      await sleep(500);
+
+      await this.accountService
+        .login(
+          this.registerEmail,
+          this.registerPassword1,
+          this.registerRememberMe
+        )
+        .toPromise();
+
+      this.responseStatus = 'success';
+      this.responseText = 'Login successful';
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      console.log(error);
+
+      this.responseStatus = 'error';
+
+      if (typeof error.error === 'string') {
+        this.responseText = error.error;
+      } else {
+        this.responseText = 'An unknown error occured.';
+      }
+    }
   }
 
   goToLogin() {
     this.router.navigate(['/login']);
   }
+}
+function sleep(time: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
 }
