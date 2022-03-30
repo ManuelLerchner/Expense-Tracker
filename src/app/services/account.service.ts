@@ -23,18 +23,10 @@ export class AccountService {
   }
 
   constructor(private http: HttpClient, private router: Router) {
-    let authToken = localStorage.getItem('authToken');
     let user = localStorage.getItem('user');
 
-    if (authToken && user) {
-      this.checkIfKeepSignedIn(authToken, JSON.parse(user)).subscribe(
-        (user: User) => {
-          this.userSubject.next(user);
-          this.user = this.userSubject.asObservable();
-          router.navigate(['/home']);
-        },
-        (error) => {}
-      );
+    if (user) {
+      this.checkIfKeepSignedIn(JSON.parse(user));
     }
 
     this.userSubject = new BehaviorSubject<User>(null as unknown as User);
@@ -51,7 +43,6 @@ export class AccountService {
       .pipe(
         map((user: User) => {
           if (rememberMe) {
-            localStorage.setItem('authToken', user.authToken);
             localStorage.setItem('user', JSON.stringify(user));
           }
           this.userSubject.next(user as User);
@@ -62,7 +53,6 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user');
-    localStorage.removeItem('authToken');
     this.userSubject.next(null as unknown as User);
   }
 
@@ -74,10 +64,18 @@ export class AccountService {
     });
   }
 
-  checkIfKeepSignedIn(authToken: string, user: User) {
-    return this.http.post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
-      authToken,
-      user,
-    });
+  checkIfKeepSignedIn(user: User) {
+    return this.http
+      .post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
+        user,
+      })
+      .subscribe(
+        (user: User) => {
+          this.userSubject.next(user);
+          this.user = this.userSubject.asObservable();
+          this.router.navigate(['/home']);
+        },
+        (error) => {}
+      );
   }
 }

@@ -1,4 +1,4 @@
-.item-card {
+.statistics-item {
   background-color: rgb(61, 61, 61);
 
   height: 100%;
@@ -48,4 +48,8 @@
       margin: 0px;
     }
   }
+}
+
+.statistics-item:hover {
+  transform: translateY(-5px);
 }

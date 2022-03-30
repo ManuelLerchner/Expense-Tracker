@@ -1,0 +1,59 @@
+<div class="content">
+  <h1 class="title">Expense-Tracker</h1>
+  <div class="loginWrapper">
+    <h1>Login</h1>
+    <form>
+      <div class="mb-3">
+        <label for="exampleDropdownFormEmail1">Email address:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleDropdownFormEmail1"
+          placeholder="email@example.com"
+          autocomplete="username"
+          [(ngModel)]="loginEmail"
+          name="email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleDropdownFormPassword1">Password:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleDropdownFormPassword1"
+          placeholder="Password"
+          autocomplete="current-password"
+          [(ngModel)]="loginPassword"
+          name="password"
+        />
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="dropdownCheck"
+          [(ngModel)]="loginRememberMe"
+          name="rememberMe"
+        />
+        <label class="form-check-label" for="dropdownCheck">
+          Remember me
+        </label>
+      </div>
+
+      <div class="bottom">
+        <button
+          type="submit"
+          class="btn btn-primary loginButton"
+          (click)="onLogin()"
+        >
+          Login
+        </button>
+        <p>{{ responseText }}</p>
+      </div>
+    </form>
+    <div class="dropdown-divider"></div>
+    <button (click)="goToSignUp()" ngbDropdownItem>
+      New around here? Sign up
+    </button>
+  </div>
+</div>

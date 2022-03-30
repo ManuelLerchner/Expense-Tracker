@@ -28,19 +28,19 @@ body {
 @import "~bootstrap/scss/bootstrap";
 @import "../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css";
 
-app-item-card:nth-child(4n + 1) .item-card {
+app-statistic-item:nth-child(4n + 1) .statistics-item {
   border-left: 6px solid #00ff22;
 }
 
-app-item-card:nth-child(4n + 2) .item-card {
+app-statistic-item:nth-child(4n + 2) .statistics-item {
   border-left: 6px solid #f8f400;
 }
 
-app-item-card:nth-child(4n + 3) .item-card {
+app-statistic-item:nth-child(4n + 3) .statistics-item {
   border-left: 6px solid #ff9900;
 }
 
-app-item-card:nth-child(4n + 4) .item-card {
+app-statistic-item:nth-child(4n + 4) .statistics-item {
   border-left: 6px solid #00eeff;
 }
 

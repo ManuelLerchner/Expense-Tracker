@@ -7,7 +7,7 @@ import { AccountService } from 'src/app/services/account.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss', '../shared.style.scss'],
 })
 export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService, private router: Router) {}
@@ -16,11 +16,8 @@ export class LoginComponent implements OnInit {
 
   loginPassword: string = '';
   loginEmail: string = '';
-  loginRememberMe: boolean = false;
-
-  registerPassword: string = '';
-  registerEmail: string = '';
-  registerUsername: string = '';
+  loginRememberMe: boolean = true;
+  responseText: string = '';
 
   onLogin() {
     this.accountService
@@ -28,31 +25,17 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (data: User) => {
-          // get return url from query parameters or default to home page
           console.log('success');
           this.router.navigate(['/home']);
         },
         error: (error: any) => {
           console.log('error');
+          this.responseText = 'Incorrect email or password.';
         },
       });
   }
 
-  onRegister() {
-    this.accountService
-      .register(
-        this.registerEmail,
-        this.registerUsername,
-        this.registerPassword
-      )
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          console.log('success register');
-        },
-        error: (error: any) => {
-          console.log('error register');
-        },
-      });
+  goToSignUp() {
+    this.router.navigate(['/register']);
   }
 }
