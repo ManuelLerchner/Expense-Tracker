@@ -28,7 +28,13 @@
         />
       </div>
 
-      <input type="text" class="hidden" id="hidden" placeholder="hidden" name="hidden" />
+      <input
+        type="text"
+        class="hidden"
+        id="hidden"
+        placeholder="hidden"
+        name="hidden"
+      />
 
       <div class="mb-3">
         <label for="password1">Password:</label>
@@ -76,7 +82,7 @@
         >
           Register
         </button>
-        <p>{{ responseText }}</p>
+        <p [ngClass]="successful ? 'success' : 'error'">{{ responseText }}</p>
       </div>
     </form>
     <div class="dropdown-divider"></div>

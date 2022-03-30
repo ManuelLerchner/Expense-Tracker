@@ -5,8 +5,8 @@ import { DashboardComponent } from './pages/home-children/dashboard/dashboard.co
 import { AboutComponent } from './pages/home-children/about/about.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { MainViewComponent } from './pages/home/main-view.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 
 const routes: Routes = [
@@ -18,7 +18,7 @@ const routes: Routes = [
 
   {
     path: 'home',
-    component: MainViewComponent,
+    component: HomeComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'modify', component: ModifyComponent },
@@ -27,11 +27,12 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard],
   },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', component: PageNotFoundComponent },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

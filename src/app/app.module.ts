@@ -25,10 +25,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutComponent } from './pages/home-children/about/about.component';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MainViewComponent } from './pages/home/main-view.component';
+
 import { LoginComponent } from './pages/auth/login/login.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -43,9 +44,9 @@ import { RegisterComponent } from './pages/auth/register/register.component';
     DoughnutChartComponent,
     TableComponent,
     AboutComponent,
-    MainViewComponent,
+    HomeComponent,
     LoginComponent,
-    NotFoundComponent,
+    PageNotFoundComponent,
     RegisterComponent,
     StatisticItemComponent,
   ],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
 import { AccountService } from 'src/app/services/account.service';
@@ -10,14 +10,25 @@ import { AccountService } from 'src/app/services/account.service';
   styleUrls: ['./login.component.scss', '../shared.style.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const returnUrl =
+      this.route.snapshot.queryParamMap.get('returnUrl') || '/home';
+
+    this.accountService.keepSignedIn(returnUrl);
+  }
 
   loginPassword: string = '';
   loginEmail: string = '';
-  loginRememberMe: boolean = true;
+  loginRememberMe: boolean = false;
+
   responseText: string = '';
+  successful: boolean = false;
 
   onLogin() {
     this.accountService
@@ -25,12 +36,19 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (data: User) => {
-          console.log('success');
+          this.successful = true;
+          this.responseText = 'Login successful';
           this.router.navigate(['/home']);
         },
         error: (error: any) => {
-          console.log('error');
-          this.responseText = 'Incorrect email or password.';
+          console.log(error);
+          this.successful = false;
+
+          if (typeof error.error === 'string') {
+            this.responseText = error.error;
+          } else {
+            this.responseText = 'An unknown error occured.';
+          }
         },
       });
   }

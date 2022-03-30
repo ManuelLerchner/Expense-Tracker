@@ -1,6 +1,15 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Expense } from 'src/app/models/Expense';
+import { StoredExpense } from 'src/app/models/StoredExpense';
+import { ExpensesService } from './../../services/expenses.service';
 
 @Component({
   selector: 'app-table',
@@ -8,17 +17,18 @@ import { Expense } from 'src/app/models/Expense';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  constructor(private router: Router) {}
-  ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
+  @Input() expenses: Expense[] = [];
+  @Input() editableExpenses: Expense[] = [];
 
-    window.scrollTo(0, 5000);
-  }
+  @Output() onDelete = new EventEmitter<number>();
+  @Output() onUpdate = new EventEmitter<Expense>();
+  @Output() onAdd = new EventEmitter<any>();
+
+  constructor(
+    private router: Router,
+    private expensesService: ExpensesService
+  ) {}
+  ngOnInit() {}
 
   clickedInsideTable = false;
   enableEditIdx = -1;
@@ -31,38 +41,33 @@ export class TableComponent implements OnInit {
   @HostListener('document:click')
   clickout() {
     if (!this.clickedInsideTable) {
-      this.updateRow(this.enableEditIdx);
+      if (this.enableEditIdx !== -1) {
+        let rowIdx = Math.floor(this.enableEditIdx / 5);
+        this.updateRow(rowIdx);
+      }
       this.enableEditIdx = -1;
     }
     this.clickedInsideTable = false;
   }
 
   enableEditMethod(e: any, i: number) {
-    this.updateRow(this.enableEditIdx);
     this.clickedInsideTable = true;
     this.enableEditIdx = i;
   }
 
-  updateRow(i: number) {
-    if (i === -1) {
-      return;
-    }
+  updateRow(rowIdx: number) {
+    let newExpense = this.expensesService.mapToExpense(
+      this.editableExpenses[rowIdx]
+    );
 
-    if (i % 5 == 4) {
-      console.log('updateRow', i);
-      let idx = Math.floor(i / 5);
-      this.expenses[idx].categories = this.expenses[idx].categories
-        .toString()
-        .split(',');
-    }
+    this.onUpdate.emit(newExpense);
   }
 
   deleteRow(i: number) {
-    this.expenses.splice(i, 1);
+    this.onDelete.emit(i);
   }
 
-  addNewData() {
-    let newId = this.expenses.length + 1;
+  addRow() {
     let newDescription = this.newData.description;
     let newAmount = this.newData.amount;
     let newDate = this.newData.date;
@@ -73,103 +78,10 @@ export class TableComponent implements OnInit {
       return;
     }
 
-    this.expenses.push({
-      id: newId,
-      description: newDescription,
-      amount: newAmount,
-      date: newDate,
-      categories: newCategories.toString().split(','),
-    });
+    this.onAdd.emit(this.newData);
 
     this.newData = {};
   }
 
   newData: any = {};
-
-  expenses: Expense[] = [
-    {
-      id: 1,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 2,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 3,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-    {
-      id: 4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      amount: 100,
-      date: new Date(),
-      categories: ['Food', 'Transport'],
-    },
-  ];
 }

@@ -18,9 +18,10 @@ export class RegisterComponent implements OnInit {
   registerPassword2: string = '';
   registerEmail: string = '';
   registerUsername: string = '';
-  registerRememberMe: boolean = true;
+  registerRememberMe: boolean = false;
 
   responseText: string = '';
+  successful: boolean = false;
 
   onRegister() {
     if (
@@ -30,11 +31,13 @@ export class RegisterComponent implements OnInit {
       !this.registerUsername
     ) {
       this.responseText = 'Please fill in all fields.';
+      this.successful = false;
       return;
     }
 
     if (this.registerPassword1 !== this.registerPassword2) {
       this.responseText = 'Passwords do not match.';
+      this.successful = false;
       return;
     }
 
@@ -47,7 +50,8 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log('success register');
+          this.successful = true;
+          this.responseText = 'Registration successful.';
 
           this.accountService
             .login(
@@ -58,19 +62,25 @@ export class RegisterComponent implements OnInit {
             .pipe(first())
             .subscribe({
               next: (data: User) => {
-                console.log('success');
+                this.successful = true;
+                this.responseText = 'Login successful.';
+
                 this.router.navigate(['/home']);
               },
               error: (error: any) => {
-                console.log('error');
-                this.responseText = 'Error Logging in.';
+                console.log(error);
+                this.successful = false;
+                this.responseText = error.error;
               },
             });
         },
         error: (error: any) => {
-          console.log('error register');
-          this.responseText =
-            'The email address is already in use by another account.';
+          console.log(error);
+          if (typeof error.error === 'string') {
+            this.responseText = error.error;
+          } else {
+            this.responseText = 'An unknown error occured.';
+          }
         },
       });
   }

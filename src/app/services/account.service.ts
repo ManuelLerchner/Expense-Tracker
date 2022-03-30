@@ -23,15 +23,34 @@ export class AccountService {
   }
 
   constructor(private http: HttpClient, private router: Router) {
-    let user = localStorage.getItem('user');
-
-    if (user) {
-      this.checkIfKeepSignedIn(JSON.parse(user));
-    }
-
     this.userSubject = new BehaviorSubject<User>(null as unknown as User);
     this.user = this.userSubject.asObservable();
   }
+
+  keepSignedIn(returnUrl: string) {
+    let localUserData = localStorage.getItem('user');
+
+    if (localUserData) {
+      let user = JSON.parse(localUserData);
+
+      this.http
+        .post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
+          user,
+        })
+        .subscribe(
+          (user: User) => {
+            this.userSubject.next(user);
+            this.user = this.userSubject.asObservable();
+            this.router.navigate([returnUrl]);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  checkIfKeepSignedIn(user: User, returnUrl: string) {}
 
   login(email: string, password: string, rememberMe: boolean) {
     return this.http
@@ -62,20 +81,5 @@ export class AccountService {
       username,
       password,
     });
-  }
-
-  checkIfKeepSignedIn(user: User) {
-    return this.http
-      .post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
-        user,
-      })
-      .subscribe(
-        (user: User) => {
-          this.userSubject.next(user);
-          this.user = this.userSubject.asObservable();
-          this.router.navigate(['/home']);
-        },
-        (error) => {}
-      );
   }
 }

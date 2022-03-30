@@ -39,14 +39,31 @@ form {
 
   height: 70px;
 
-  div {
+  button {
     width: 30%;
   }
 
   p {
-    margin: 0px;
-    padding: 10px;
+    width: 60%;
+  }
+
+  .error {
     color: red;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    margin: 0px;
+    color: red;
+    word-wrap: break-word;
+  }
+
+  .success {
+    color: green;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    margin: 0px;
+    color: green;
     word-wrap: break-word;
   }
 }

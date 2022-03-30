@@ -2,11 +2,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 
 @Component({
-  selector: 'app-main-view',
-  templateUrl: './main-view.component.html',
-  styleUrls: ['./main-view.component.scss'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class MainViewComponent implements OnInit {
+export class HomeComponent implements OnInit {
   title = 'Expense-Tracker';
   sidenavOpen = true;
   mobileView = false;

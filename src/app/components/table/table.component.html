@@ -4,11 +4,11 @@
     <!-- Nr. -->
     <col style="width: 15%" />
     <!-- Date -->
-    <col style="width: 40%" />
+    <col style="width: 30%" />
     <!-- Description -->
     <col style="width: 10%" />
     <!-- Amount -->
-    <col style="width: 20%" />
+    <col style="width: 30%" />
     <!-- Categories -->
     <col style="width: 10%" />
     <!-- Actions -->
@@ -58,7 +58,7 @@
           [(ngModel)]="newData.categories"
         />
       </td>
-      <td><button class="add" (click)="addNewData()">Add</button></td>
+      <td><button class="add" (click)="addRow()">Add</button></td>
     </tr>
 
     <tr *ngFor="let expense of expenses; index as i">
@@ -71,7 +71,7 @@
             type="date"
             name="dateinput"
             placeholder="-"
-            [(ngModel)]="expense.date"
+            [(ngModel)]="editableExpenses[i].date"
           />
         </div>
         <ng-template #editDate>
@@ -86,7 +86,7 @@
             type="text"
             name="descriptioninput"
             placeholder="-"
-            [(ngModel)]="expense.description"
+            [(ngModel)]="editableExpenses[i].description"
           />
         </div>
         <ng-template #editDescription>
@@ -101,7 +101,7 @@
             type="number"
             name="amountinput"
             placeholder="-"
-            [(ngModel)]="expense.amount"
+            [(ngModel)]="editableExpenses[i].amount"
           />
         </div>
         <ng-template #editAmount>
@@ -116,7 +116,7 @@
             type="text"
             name="categoriesinput"
             placeholder="-"
-            [(ngModel)]="expense.categories"
+            [(ngModel)]="editableExpenses[i].categories"
           />
         </div>
         <ng-template #categoriesType>
