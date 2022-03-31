@@ -6,9 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./statistic-item.component.scss'],
 })
 export class StatisticItemComponent implements OnInit {
-  @Input() title!: string;
+  @Input() title!: any;
   @Input() subtitle!: string;
-  @Input() content!: string;
+  @Input() content!: any;
   @Input() icon!: string;
 
   constructor() {}

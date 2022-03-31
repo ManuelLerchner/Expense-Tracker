@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Chart, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-line-chart',
@@ -6,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./line-chart.component.scss'],
 })
 export class LineChartComponent implements OnInit {
+  @Input() lineChartLabels!: string[];
+  @Input() lineChartData!: any[];
+  @Input() title!: string;
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  public options = {
+  public options: any = {
     responsive: true,
     maintainAspectRatio: false,
     elements: {
@@ -35,7 +40,13 @@ export class LineChartComponent implements OnInit {
 
     plugins: {
       legend: {
-        display: false,
+        position: 'bottom',
+        labels: {
+          align: 'end',
+          font: {
+            size: 15,
+          },
+        },
       },
     },
   };
@@ -45,19 +56,5 @@ export class LineChartComponent implements OnInit {
       borderColor: 'red',
       backgroundColor: 'rgba(255,255,0,0.28)',
     },
-  ];
-
-  public barChartLabels = [
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-  ];
-
-  public barChartData = [
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
   ];
 }

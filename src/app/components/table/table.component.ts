@@ -95,4 +95,10 @@ export class TableComponent implements OnInit {
       categories: '',
     };
   }
+
+  keyDownFunction(event: any) {
+    if (event.keyCode === 13) {
+      this.addRow();
+    }
+  }
 }

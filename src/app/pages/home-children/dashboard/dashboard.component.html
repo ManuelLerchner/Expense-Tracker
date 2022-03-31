@@ -7,43 +7,73 @@
   <div class="page-content">
     <div class="cards">
       <app-statistic-item
-        [title]="'300€'"
+        [title]="monthlySpending | currency: 'EUR':'symbol':'1.1-1':'de-DE'"
         [subtitle]="'Monthly-Spending'"
-        [content]="'Increase of 5%'"
+        [content]="
+          (monthlyChange >= 0
+            ? 'Thats an increase of'
+            : 'Thats a decrease of') +
+          ' ' +
+          (monthlyChange | percent) +
+          ' compared to last month.'
+        "
         [icon]="'today'"
       >
       </app-statistic-item>
 
       <app-statistic-item
-        [title]="'500€'"
+        [title]="totalSpending | currency: 'EUR':'symbol':'1.1-1':'de-DE'"
         [subtitle]="'Total-Spending'"
-        [content]="'10% just in this month'"
+        [content]="
+          ((monthlySpending / totalSpending | percent) || '-') +
+          ' of all the money was spent just this month.'
+        "
         [icon]="'calendar_month'"
       >
       </app-statistic-item>
 
       <app-statistic-item
-        [title]="'70€'"
+        [title]="
+          biggestSpendingAmount | currency: 'EUR':'symbol':'1.1-1':'de-DE'
+        "
         [subtitle]="'Biggest-Spending'"
-        [content]="'Dies Das Ananas'"
+        [content]="biggestSpendingDescription + '.'"
         [icon]="'shopping_bag'"
       >
       </app-statistic-item>
 
       <app-statistic-item
-        [title]="'Food'"
+        [title]="biggestCategoryName"
         [subtitle]="'Biggest-Category'"
-        [content]="'20% of all spendings'"
+        [content]="
+          ((biggestCategoryShare / totalSpending | percent) || '-') +
+          ' of all expenses are in this category.'
+        "
         [icon]="'category'"
       >
       </app-statistic-item>
     </div>
 
     <div class="charts">
-      <app-line-chart class="lineChart"></app-line-chart>
-      <app-line-chart class="lineChart"></app-line-chart>
+      <app-line-chart
+        class="lineChart"
+        [title]="'All-Expenses'"
+        [lineChartData]="lineChartData_total"
+        [lineChartLabels]="lineChartLabels_total"
+      ></app-line-chart>
+      <app-line-chart
+        class="lineChart"
+        [title]="'Total Expenses'"
+        [lineChartData]="lineChartData_accumulative"
+        [lineChartLabels]="lineChartLabels_accumulative"
+      ></app-line-chart>
 
-      <app-doughnut-chart></app-doughnut-chart>
+      <app-doughnut-chart
+        class="doughnutChart"
+        [title]="'Category-Expenses'"
+        [doughnutChartData]="doughnutChartData"
+        [doughnutChartLabels]="doughnutChartLabels"
+      ></app-doughnut-chart>
     </div>
   </div>
 </div>

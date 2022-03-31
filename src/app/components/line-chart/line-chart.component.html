@@ -1,11 +1,11 @@
 <div class="lineChart">
-  <h2>This is the Test Graph</h2>
+  <h2>{{ title }}</h2>
 
   <div class="chart">
     <canvas
       baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
       [options]="options"
       [type]="'line'"
     >

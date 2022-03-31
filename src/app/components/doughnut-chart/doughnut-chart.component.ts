@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-doughnut-chart',
@@ -6,22 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doughnut-chart.component.scss'],
 })
 export class DoughnutChartComponent implements OnInit {
+  @Input() public doughnutChartLabels!: string[];
+  @Input() public doughnutChartData!: any[];
+  @Input() public title!: string;
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  public options = {
+  public options: any = {
     responsive: true,
     maintainAspectRatio: false,
 
     plugins: {
       legend: {
-        display: true,
+        position: 'bottom',
+        labels: {
+          align: 'end',
+          font: {
+            size: 15,
+          },
+        },
       },
     },
   };
-
-  public doughnutChartLabels = ['A', 'B', 'C', 'D'];
-
-  public doughnutChartData = [{ data: [28, 48, 40] }];
 }

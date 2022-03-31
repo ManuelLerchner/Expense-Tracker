@@ -31,6 +31,11 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +68,9 @@ import { HomeComponent } from './pages/home/home.component';
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+  
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

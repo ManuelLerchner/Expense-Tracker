@@ -27,29 +27,28 @@ export class AccountService {
     this.user = this.userSubject.asObservable();
   }
 
-  keepSignedIn(returnUrl: string) {
+  async keepSignedIn(returnUrl: string) {
     let localUserData = localStorage.getItem('user');
 
     if (localUserData) {
-      let user = JSON.parse(localUserData);
+      let localUserDataJson = JSON.parse(localUserData);
 
-      this.http
-        .post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
-          user,
-        })
-        .subscribe(
-          (user: User) => {
-            this.userSubject.next(user);
-            this.user = this.userSubject.asObservable();
-            this.router.navigate([returnUrl]);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      try {
+        let user = await this.http
+          .post<User>(`${environment.apiUrl}/auth/keep-signed-in`, {
+            user: localUserDataJson,
+          })
+          .toPromise();
+
+        this.userSubject.next(user as User);
+        this.user = this.userSubject.asObservable();
+
+        this.router.navigate([returnUrl]);
+      } catch (error: any) {
+        console.log(error.statusText);
+      }
     }
   }
-
 
   login(email: string, password: string, rememberMe: boolean) {
     return this.http
