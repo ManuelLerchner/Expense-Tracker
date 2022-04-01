@@ -8,6 +8,9 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { TableComponent } from './pages/home-children/table/table.component';
+import { ChartsComponent } from './pages/home-children/charts/charts.component';
+import { GalleryComponent } from './pages/home-children/gallery/gallery.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home/dashboard', pathMatch: 'full' },
@@ -23,12 +26,14 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'modify', component: ModifyComponent },
 
+      { path: 'charts', component: ChartsComponent },
+      { path: 'table', component: TableComponent },
+      { path: 'gallery', component: GalleryComponent },
       { path: 'about', component: AboutComponent },
     ],
     canActivate: [AuthGuard],
   },
   { path: '**', component: PageNotFoundComponent },
-
 ];
 
 @NgModule({

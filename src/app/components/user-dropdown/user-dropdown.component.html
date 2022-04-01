@@ -7,7 +7,7 @@
 
       <div ngbDropdownMenu aria-labelledby="register">
         <p ngbDropdownItem>
-          Logged in as, <b> {{ accountService.userValue.username }}</b>
+          Logged in as: <b> {{ accountService.userValue.username }}</b>
         </p>
         <button ngbDropdownItem (click)="onLogout()">Logout</button>
       </div>

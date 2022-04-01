@@ -22,9 +22,8 @@ export class SidenavComponent implements OnInit {
     {
       name: 'Views',
       links: [
-        { name: 'Chart', symbol: 'query_stats', path: 'chart' },
+        { name: 'Charts', symbol: 'query_stats', path: 'charts' },
         { name: 'Table', symbol: 'grid_on', path: 'table' },
-        { name: 'Callendar', symbol: 'calendar_month', path: 'callender' },
         { name: 'Gallery', symbol: 'collections', path: 'gallery' },
       ],
     },

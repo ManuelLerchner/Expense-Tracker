@@ -6,13 +6,13 @@
 
   <div class="page-content">
     <div class="table">
-      <app-table
+      <app-smart-table
         [expenses]="expenses"
         [editableExpenses]="editableExpenses"
         (onUpdate)="updateExpense($event)"
         (onAdd)="addExpense($event)"
         (onDelete)="deleteExpense($event)"
-      ></app-table>
+      ></app-smart-table>
     </div>
   </div>
 </div>

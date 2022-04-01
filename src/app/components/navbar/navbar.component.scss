@@ -29,6 +29,12 @@
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
+.titleGroup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 p {
   margin: 0px;
   align-items: center;
@@ -52,5 +58,11 @@ p {
 
   a {
     cursor: pointer;
+  }
+}
+
+@media (max-width: 500px) {
+  .title {
+    display: none;
   }
 }

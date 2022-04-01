@@ -1,0 +1,27 @@
+<div class="fullHeight">
+  <div class="title">
+    <h1>Gallery</h1>
+    <h3>Visualize the expenses in gallery-form</h3>
+  </div>
+
+  <div class="page-content">
+    <div class="gallery">
+      <mat-card class="card" *ngFor="let expense of expenses">
+        <mat-card-title>{{ expense.description }}</mat-card-title>
+        <mat-card-content>
+          <p>
+            {{
+              "Bought on " +
+                expense.date.toDateString() +
+                " for " +
+                (expense.amount | currency: "EUR":"symbol":"1.1-1":"de-DE")
+            }}
+          </p>
+          <p *ngIf="expense.categories.length > 0">
+            {{ "Categories: " + expense.categories.join(", ") }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

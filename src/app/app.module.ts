@@ -18,22 +18,27 @@ import { ModifyComponent } from './pages/home-children/modify/modify.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { FormsModule } from '@angular/forms';
-import { TableComponent } from './components/table/table.component';
+import { SmartTableComponent } from './components/smart-table/smart-table.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutComponent } from './pages/home-children/about/about.component';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
 import { LoginComponent } from './pages/auth/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
+import { TableComponent } from './pages/home-children/table/table.component';
+import { ChartsComponent } from './pages/home-children/charts/charts.component';
+import { GalleryComponent } from './pages/home-children/gallery/gallery.component';
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({
@@ -47,16 +52,20 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
     StatisticItemComponent,
     LineChartComponent,
     DoughnutChartComponent,
-    TableComponent,
+    SmartTableComponent,
     AboutComponent,
     HomeComponent,
     LoginComponent,
     PageNotFoundComponent,
     RegisterComponent,
     StatisticItemComponent,
+    TableComponent,
+    ChartsComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
+    MatDividerModule,
     AppRoutingModule,
     MatIconModule,
     NgbModule,
@@ -65,12 +74,14 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
     FormsModule,
     MatChipsModule,
     MatInputModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-  
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

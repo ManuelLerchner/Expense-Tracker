@@ -6,17 +6,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { NavigationEnd, Router } from '@angular/router';
 import { Expense } from 'src/app/models/Expense';
 import { StoredExpense } from 'src/app/models/StoredExpense';
-import { ExpensesService } from './../../services/expenses.service';
+import { ExpensesService } from '../../services/expenses.service';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  selector: 'app-smart-table',
+  templateUrl: './smart-table.component.html',
+  styleUrls: ['./smart-table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class SmartTableComponent implements OnInit {
   @Input() expenses: Expense[] = [];
   @Input() editableExpenses: Expense[] = [];
 
@@ -24,7 +26,10 @@ export class TableComponent implements OnInit {
   @Output() onUpdate = new EventEmitter<Expense>();
   @Output() onAdd = new EventEmitter<Expense>();
 
-  constructor(private expensesService: ExpensesService) {}
+  constructor(
+    private expensesService: ExpensesService,
+    private snackBar: MatSnackBar
+  ) {}
   ngOnInit() {}
 
   newData: StoredExpense = {
@@ -65,7 +70,16 @@ export class TableComponent implements OnInit {
       this.editableExpenses[rowIdx]
     );
 
-    this.onUpdate.emit(updatedExpense);
+    if (
+      updatedExpense.description !== this.expenses[rowIdx].description ||
+      updatedExpense.amount !== this.expenses[rowIdx].amount ||
+      updatedExpense.date.toDateString() !==
+        this.expenses[rowIdx].date.toDateString() ||
+      updatedExpense.categories.toString() !==
+        this.expenses[rowIdx].categories.toString()
+    ) {
+      this.onUpdate.emit(updatedExpense);
+    }
   }
 
   deleteRow(rowIdx: number) {
@@ -94,6 +108,12 @@ export class TableComponent implements OnInit {
       date: new Date().toISOString().split('T')[0],
       categories: '',
     };
+  }
+
+  showSnackBar(description: string, action: string) {
+    this.snackBar.open(description, action, {
+      duration: 2000,
+    });
   }
 
   keyDownFunction(event: any) {

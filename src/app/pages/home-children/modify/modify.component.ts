@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { TableComponent } from 'src/app/components/table/table.component';
+import { SmartTableComponent } from 'src/app/components/smart-table/smart-table.component';
 import { Expense } from 'src/app/models/Expense';
 import { StoredExpense } from 'src/app/models/StoredExpense';
 import { ExpensesService } from './../../../services/expenses.service';
+
+import { loadExpenses } from '../dataHelper';
 
 @Component({
   selector: 'app-add',
@@ -13,33 +15,20 @@ import { ExpensesService } from './../../../services/expenses.service';
 export class ModifyComponent implements OnInit {
   constructor(private expenseService: ExpensesService) {}
 
-  @ViewChild(TableComponent) table!: TableComponent;
+  @ViewChild(SmartTableComponent) table!: SmartTableComponent;
 
   expenses: Expense[] = [];
   editableExpenses: Expense[] = [];
 
   ngOnInit() {
-    this.loadExpenses();
+    this.updateData();
   }
 
-  async loadExpenses() {
-    try {
-      let expenses = await this.expenseService
-        .getExpensesForCurrentUser()
-        .toPromise();
-
-      let sortedExpenses = expenses.sort((a, b) => {
-        return b.date.getTime() - a.date.getTime();
-      });
-
-      this.expenses = sortedExpenses;
-
-      this.editableExpenses = this.expenses.map((expense) => {
-        return { ...expense, editable: false };
-      });
-    } catch (e: any) {
-      console.log(e.error);
-    }
+  updateData() {
+    loadExpenses(this.expenseService).then((data) => {
+      this.expenses = data['sortedExpenses'];
+      this.editableExpenses = data['editableExpenses'];
+    });
   }
 
   async updateExpense(newExpense: Expense) {
@@ -47,8 +36,8 @@ export class ModifyComponent implements OnInit {
       let toUpdate = this.expenseService.convertToStoredExpense(newExpense);
 
       await this.expenseService.updateExpense(toUpdate).toPromise();
-
-      this.loadExpenses();
+      this.table.showSnackBar('Expense updated.', 'Close');
+      this.updateData();
     } catch (e: any) {
       console.log(e.error);
     }
@@ -61,7 +50,8 @@ export class ModifyComponent implements OnInit {
       await this.expenseService.addExpense(toAdd).toPromise();
 
       this.table.clearNewData();
-      this.loadExpenses();
+      this.table.showSnackBar('Expense added.', 'Close');
+      this.updateData();
     } catch (e: any) {
       console.log(e.error);
     }
@@ -71,7 +61,8 @@ export class ModifyComponent implements OnInit {
     try {
       await this.expenseService.deleteExpense(id).toPromise();
 
-      this.loadExpenses();
+      this.table.showSnackBar('Expense deleted.', 'Close');
+      this.updateData();
     } catch (e: any) {
       console.log(e.error);
     }

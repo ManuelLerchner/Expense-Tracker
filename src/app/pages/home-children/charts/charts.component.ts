@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ExpensesService } from 'src/app/services/expenses.service';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Expense } from 'src/app/models/Expense';
+import { ExpensesService } from 'src/app/services/expenses.service';
 import {
   biggestCategorySpendings,
   biggestSingleSpending,
@@ -12,14 +11,11 @@ import {
 } from '../dataHelper';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss', '../shared.style.scss'],
-  host: {
-    class: 'fullWidth',
-  },
+  selector: 'app-charts',
+  templateUrl: './charts.component.html',
+  styleUrls: ['./charts.component.scss', '../shared.style.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class ChartsComponent implements OnInit {
   public lineChartLabels_accumulative: string[] = [];
   public lineChartLabels_total: string[] = [];
 

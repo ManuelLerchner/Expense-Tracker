@@ -1,0 +1,30 @@
+<div class="fullHeight">
+  <div class="title">
+    <h1>Charts</h1>
+    <h3>Visualize the expenses in Charts</h3>
+  </div>
+
+  <div class="page-content">
+    <div class="charts">
+      <app-line-chart
+        class="lineChart"
+        [title]="'Every recorded expense.'"
+        [lineChartData]="lineChartData_total"
+        [lineChartLabels]="lineChartLabels_total"
+      ></app-line-chart>
+      <app-line-chart
+        class="lineChart"
+        [title]="'An accumulating view of all the expenses.'"
+        [lineChartData]="lineChartData_accumulative"
+        [lineChartLabels]="lineChartLabels_accumulative"
+      ></app-line-chart>
+
+      <app-doughnut-chart
+        class="doughnutChart"
+        [title]="'Every category of expenses.'"
+        [doughnutChartData]="doughnutChartData"
+        [doughnutChartLabels]="doughnutChartLabels"
+      ></app-doughnut-chart>
+    </div>
+  </div>
+</div>

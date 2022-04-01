@@ -1,0 +1,23 @@
+.charts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  flex-wrap: wrap;
+}
+
+.doughnutChart {
+  position: relative;
+
+  width: 100%;
+  min-height: 300px;
+
+  margin-bottom: 64px;
+}
+
+.lineChart {
+  width: 100%;
+
+  margin-bottom: 64px;
+}
