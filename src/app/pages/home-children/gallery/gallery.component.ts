@@ -20,7 +20,6 @@ export class GalleryComponent implements OnInit {
   updateData() {
     loadExpenses(this.expenseService).then((data) => {
       this.expenses = data['sortedExpenses'];
-      console.log(this.expenses);
     });
   }
 }
