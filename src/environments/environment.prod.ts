@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
-  
+  production: true,
+  apiUrl: 'https://api.manuellerchner.de/expensetracker',
 };
