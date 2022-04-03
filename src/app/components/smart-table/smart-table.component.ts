@@ -20,7 +20,8 @@ import { ExpensesService } from '../../services/expenses.service';
 })
 export class SmartTableComponent implements OnInit {
   @Input() expenses: Expense[] = [];
-  @Input() editableExpenses: Expense[] = [];
+
+  editableExpenses: Expense[] = [];
 
   @Output() onDelete = new EventEmitter<number>();
   @Output() onUpdate = new EventEmitter<Expense>();
@@ -31,6 +32,12 @@ export class SmartTableComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
   ngOnInit() {}
+
+  ngOnChanges() {
+    this.editableExpenses = this.expenses.map((expense) => {
+      return { ...expense };
+    });
+  }
 
   newData: StoredExpense = {
     id: '',
@@ -46,6 +53,9 @@ export class SmartTableComponent implements OnInit {
   @HostListener('click')
   clickInside() {
     this.clickedInsideTable = true;
+    this.editableExpenses = this.expenses.map((expense) => {
+      return { ...expense };
+    });
   }
 
   @HostListener('document:click')
@@ -63,6 +73,9 @@ export class SmartTableComponent implements OnInit {
   enableEditMethod(e: any, i: number) {
     this.clickedInsideTable = true;
     this.enableEditIdx = i;
+    this.editableExpenses = this.expenses.map((expense) => {
+      return { ...expense };
+    });
   }
 
   updateRow(rowIdx: number) {

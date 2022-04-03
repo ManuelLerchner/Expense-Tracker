@@ -22,10 +22,9 @@
       <th>Categories</th>
       <th>Actions</th>
     </tr>
-  
+
     <!--Input-->
-    <tr class="newDataRow"  (keydown)="keyDownFunction($event)">
-   
+    <tr class="newDataRow" (keydown)="keyDownFunction($event)">
       <td><mat-icon class="icon">add</mat-icon></td>
       <td>
         <input
@@ -60,7 +59,6 @@
         />
       </td>
       <td><button class="add" (click)="addRow()">Add</button></td>
-  
     </tr>
     <tr *ngFor="let expense of expenses; index as i">
       <td>{{ i + 1 }}</td>
@@ -106,7 +104,7 @@
           />
         </div>
         <ng-template #editAmount>
-          {{ expense.amount }}
+          {{ expense.amount + " €" }}
         </ng-template>
       </td>
 

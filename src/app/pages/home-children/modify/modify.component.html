@@ -5,10 +5,18 @@
   </div>
 
   <div class="page-content">
+    <form [formGroup]="formGroup" class="searchbar">
+      <input
+        type="text"
+        class="form-control"
+        name="searchString"
+        placeholder="Type to search..."
+        formControlName="filter"
+      />
+    </form>
     <div class="table">
       <app-smart-table
-        [expenses]="expenses"
-        [editableExpenses]="editableExpenses"
+        [expenses]="filteredExpenses$"
         (onUpdate)="updateExpense($event)"
         (onAdd)="addExpense($event)"
         (onDelete)="deleteExpense($event)"

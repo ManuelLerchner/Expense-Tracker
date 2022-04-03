@@ -79,9 +79,12 @@ export function loadCategories(sortedData: Expense[]) {
   sortedData.forEach((expense) => {
     expense.categories.forEach((category) => {
       if (map.has(category)) {
-        map.set(category, map.get(category)! + expense.amount);
+        map.set(
+          category,
+          map.get(category)! + expense.amount / expense.categories.length
+        );
       } else {
-        map.set(category, expense.amount);
+        map.set(category, expense.amount / expense.categories.length);
       }
     });
 
@@ -94,7 +97,7 @@ export function loadCategories(sortedData: Expense[]) {
     }
   });
 
-  let sorted= [...map].sort((a, b) => {
+  let sorted = [...map].sort((a, b) => {
     return b[1] - a[1];
   });
 

@@ -40,8 +40,7 @@ export class TableComponent implements AfterViewInit {
             .toString()
             .toLowerCase()
             .includes(value.toLowerCase()) ||
-          expense.amount
-            .toString()
+          (expense.amount.toString() + ' €')
             .toLowerCase()
             .includes(value.toLowerCase()) ||
           new Date(expense.date)
