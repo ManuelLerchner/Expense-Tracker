@@ -8,7 +8,7 @@ export async function loadExpenses(expensesService: ExpensesService) {
       .toPromise();
 
     let sortedExpenses = expenses.sort((a, b) => {
-      return b.date.getTime() - a.date.getTime();
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
     let editableExpenses = expenses.map((expense) => {
@@ -74,28 +74,39 @@ export function loadAccumulativeExpenses(
 }
 
 export function loadCategories(sortedData: Expense[]) {
-  let allCategories = sortedData.reduce((accum: any, curr: any) => {
-    if (curr.categories.length > 0) {
-      return [...accum, ...curr.categories];
-    } else {
-      return [...accum, 'No category'];
-    }
-  }, []);
+  let map = new Map<string, number>();
 
-  let categoriesCount = allCategories.reduce((accum: any, curr: any) => {
-    if (accum[curr]) {
-      accum[curr]++;
-    } else {
-      accum[curr] = 1;
-    }
-    return accum;
-  }, {});
+  sortedData.forEach((expense) => {
+    expense.categories.forEach((category) => {
+      if (map.has(category)) {
+        map.set(category, map.get(category)! + expense.amount);
+      } else {
+        map.set(category, expense.amount);
+      }
+    });
 
-  let doughnutChartLabels = Object.keys(categoriesCount);
+    if (expense.categories.length === 0) {
+      if (map.has('Other')) {
+        map.set('Other', map.get('Other')! + expense.amount);
+      } else {
+        map.set('Other', expense.amount);
+      }
+    }
+  });
+
+  let sorted= [...map].sort((a, b) => {
+    return b[1] - a[1];
+  });
+
+  let doughnutChartLabels = sorted.map((category) => {
+    return category[0];
+  });
 
   let doughnutChartData = [
     {
-      data: Object.values(categoriesCount),
+      data: sorted.map((category) => {
+        return category[1];
+      }),
       label: 'Categories',
     },
   ];
@@ -106,14 +117,17 @@ export function loadCategories(sortedData: Expense[]) {
 export function calculateMonthlySpending(sortedExpenses: Expense[]) {
   let last31Days = sortedExpenses.filter((expense) => {
     return (
-      expense.date.getTime() >= new Date().setDate(new Date().getDate() - 31)
+      new Date(expense.date).getTime() >=
+      new Date().setDate(new Date().getDate() - 31)
     );
   });
 
   let previous31Days = sortedExpenses.filter((expense) => {
     return (
-      expense.date.getTime() < new Date().setDate(new Date().getDate() - 31) &&
-      expense.date.getTime() >= new Date().setDate(new Date().getDate() - 62)
+      new Date(expense.date).getTime() <
+        new Date().setDate(new Date().getDate() - 31) &&
+      new Date(expense.date).getTime() >=
+        new Date().setDate(new Date().getDate() - 62)
     );
   });
 
@@ -149,7 +163,7 @@ export function biggestSingleSpending(sortedExpenses: Expense[]) {
     (biggestSingleSpending.description || '-') +
     ' it was bought on ' +
     (biggestSingleSpending.description
-      ? biggestSingleSpending.date.toLocaleDateString()
+      ? new Date(biggestSingleSpending.date).toLocaleDateString()
       : '-');
   let biggestSpendingAmount = biggestSingleSpending.amount | 0;
 

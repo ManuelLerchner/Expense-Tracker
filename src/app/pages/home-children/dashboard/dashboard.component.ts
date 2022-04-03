@@ -9,7 +9,8 @@ import {
   loadAccumulativeExpenses,
   loadAllExpenses,
   loadCategories,
-} from '../dataHelper';
+} from '../../../services/dataHelper';
+import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,65 +39,25 @@ export class DashboardComponent implements OnInit {
   public biggestSpendingDescription: string = '';
   public biggestSpendingAmount: number = 0;
 
-  constructor(private expensesService: ExpensesService) {}
+  constructor(private chartService: ChartService) {}
 
   ngOnInit(): void {
-    this.loadExpenses();
+    this.loadData();
   }
-
-  async loadExpenses() {
-    let dbData: Expense[] = await this.expensesService
-      .getExpensesForCurrentUser()
-      .toPromise();
-
-    let sortedData = dbData.sort((a, b) => {
-      return a.date.getTime() - b.date.getTime();
-    });
-
-    let sortedLabels = sortedData.map((expense) => {
-      return expense.date.toLocaleDateString();
-    });
-
-    let { lineChartData_total, lineChartLabels_total } = loadAllExpenses(
-      sortedData,
-      sortedLabels
-    );
-
-    let {
-      lineChartData_accumulative,
-      lineChartLabels_accumulative,
-      totalSpending,
-    } = loadAccumulativeExpenses(sortedData, sortedLabels);
-
-    let { biggestSpendingDescription, biggestSpendingAmount } =
-      biggestSingleSpending(sortedData);
-
-    let { monthlySpending, monthlyChange } =
-      calculateMonthlySpending(sortedData);
-
-    let { biggestCategoryName, biggestCategoryShare } =
-      biggestCategorySpendings(sortedData);
-
-    let { doughnutChartLabels, doughnutChartData } = loadCategories(sortedData);
-
-    this.lineChartLabels_accumulative = lineChartLabels_accumulative;
-    this.lineChartData_accumulative = lineChartData_accumulative;
-
-    this.lineChartData_total = lineChartData_total;
-    this.lineChartLabels_total = lineChartLabels_total;
-
-    this.doughnutChartLabels = doughnutChartLabels;
-    this.doughnutChartData = doughnutChartData;
-
-    this.monthlySpending = monthlySpending;
-    this.monthlyChange = monthlyChange;
-
-    this.biggestCategoryName = biggestCategoryName;
-    this.biggestCategoryShare = biggestCategoryShare;
-
-    this.biggestSpendingDescription = biggestSpendingDescription;
-    this.biggestSpendingAmount = biggestSpendingAmount;
-
-    this.totalSpending = totalSpending;
+  async loadData() {
+    let data = await this.chartService.loadExpenses();
+    this.lineChartLabels_accumulative = data.lineChartLabels_accumulative;
+    this.lineChartLabels_total = data.lineChartLabels_total;
+    this.lineChartData_accumulative = data.lineChartData_accumulative;
+    this.lineChartData_total = data.lineChartData_total;
+    this.doughnutChartLabels = data.doughnutChartLabels;
+    this.doughnutChartData = data.doughnutChartData;
+    this.monthlySpending = data.monthlySpending;
+    this.monthlyChange = data.monthlyChange;
+    this.totalSpending = data.totalSpending;
+    this.biggestCategoryName = data.biggestCategoryName;
+    this.biggestCategoryShare = data.biggestCategoryShare;
+    this.biggestSpendingDescription = data.biggestSpendingDescription;
+    this.biggestSpendingAmount = data.biggestSpendingAmount;
   }
 }

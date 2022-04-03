@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Expense } from '../models/Expense';
@@ -71,6 +72,7 @@ export class ExpensesService {
   }
 
   mapToExpense(expense: any): Expense {
+    const DATE_RFC2822 = 'ddd, DD MMM YYYY HH:mm:ss ZZ';
     return {
       id: parseInt(expense.id),
       amount: parseFloat(expense.amount),
@@ -80,7 +82,7 @@ export class ExpensesService {
         .split(',')
         .map((string: string) => string.trim())
         .filter((c: string) => c),
-      date: new Date(expense.date),
+      date: moment(expense.date).format(DATE_RFC2822),
     };
   }
 

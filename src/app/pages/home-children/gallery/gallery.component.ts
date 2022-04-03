@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Expense } from 'src/app/models/Expense';
 import { ExpensesService } from 'src/app/services/expenses.service';
-import { loadExpenses } from '../dataHelper';
+import { loadExpenses } from '../../../services/dataHelper';
 
 @Component({
   selector: 'app-gallery',
@@ -19,7 +19,12 @@ export class GalleryComponent implements OnInit {
 
   updateData() {
     loadExpenses(this.expenseService).then((data) => {
-      this.expenses = data['sortedExpenses'];
+      this.expenses = data['sortedExpenses'].map((expense) => {
+        return {
+          ...expense,
+          date: new Date(expense.date).toDateString(),
+        };
+      });
     });
   }
 }

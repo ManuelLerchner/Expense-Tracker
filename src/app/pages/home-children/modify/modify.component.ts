@@ -5,7 +5,7 @@ import { Expense } from 'src/app/models/Expense';
 import { StoredExpense } from 'src/app/models/StoredExpense';
 import { ExpensesService } from './../../../services/expenses.service';
 
-import { loadExpenses } from '../dataHelper';
+import { loadExpenses } from '../../../services/dataHelper';
 
 @Component({
   selector: 'app-add',

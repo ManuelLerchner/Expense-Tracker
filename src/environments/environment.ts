@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:4000/expensetracker',
+  // apiUrl: 'http://localhost:4000/expensetracker',
+  apiUrl: 'https://api.manuellerchner.de/expensetracker',
 };
 
 /*

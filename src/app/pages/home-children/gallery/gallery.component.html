@@ -12,7 +12,7 @@
           <p>
             {{
               "Bought on " +
-                expense.date.toDateString() +
+                expense.date +
                 " for " +
                 (expense.amount | currency: "EUR":"symbol":"1.1-1":"de-DE")
             }}

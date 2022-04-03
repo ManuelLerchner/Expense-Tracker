@@ -28,6 +28,20 @@ export class DoughnutChartComponent implements OnInit {
           },
         },
       },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItems: any) => {
+            return (
+              ' ' +
+              Math.round(
+                tooltipItems.dataset.data[tooltipItems.dataIndex] * 10
+              ) /
+                10 +
+              '€'
+            );
+          },
+        },
+      },
     },
   };
 }

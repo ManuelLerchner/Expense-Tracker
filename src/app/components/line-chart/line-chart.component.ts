@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart, ChartOptions } from 'chart.js';
 
+import 'chartjs-adapter-moment';
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
@@ -11,6 +11,7 @@ export class LineChartComponent implements OnInit {
   @Input() lineChartData!: any[];
   @Input() title!: string;
 
+  minData: any;
   constructor() {}
 
   ngOnInit(): void {}
@@ -38,6 +39,37 @@ export class LineChartComponent implements OnInit {
       },
     },
 
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value: any, index: any, values: any) {
+            return value + '€';
+          },
+        },
+
+        suggestedMin: 0,
+      },
+      x: {
+        type: 'time',
+      },
+    },
+
+    //   zoom: {
+    //     zoom: {
+    //         wheel: {
+    //             enabled: true,
+    //         },
+    //         pinch: {
+    //             enabled: true,
+    //         },
+    //         overScaleMode: "y",
+    //     },
+    //     pan: {
+    //         enabled: true,
+    //         mode: "xy",
+    //     },
+    // },
+
     plugins: {
       legend: {
         position: 'bottom',
@@ -45,6 +77,20 @@ export class LineChartComponent implements OnInit {
           align: 'end',
           font: {
             size: 15,
+          },
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItems: any) => {
+            return (
+              ' ' +
+              Math.round(
+                tooltipItems.dataset.data[tooltipItems.dataIndex] * 10
+              ) /
+                10 +
+              '€'
+            );
           },
         },
       },

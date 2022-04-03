@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { map, startWith, withLatestFrom } from 'rxjs/operators';
 import { Expense } from 'src/app/models/Expense';
 import { ExpensesService } from 'src/app/services/expenses.service';
-import { loadExpenses } from '../dataHelper';
+import { loadExpenses } from '../../../services/dataHelper';
 
 @Component({
   selector: 'app-table',
@@ -44,7 +44,7 @@ export class TableComponent implements AfterViewInit {
             .toString()
             .toLowerCase()
             .includes(value.toLowerCase()) ||
-          expense.date
+          new Date(expense.date)
             .toDateString()
             .toLowerCase()
             .includes(value.toLowerCase()) ||
@@ -64,7 +64,7 @@ export class TableComponent implements AfterViewInit {
         return {
           ...expense,
           id: i,
-          displayDate: expense.date.toDateString(),
+          displayDate: new Date(expense.date).toDateString(),
           categories: expense.categories.join(', '),
         };
       });

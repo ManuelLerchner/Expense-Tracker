@@ -73,8 +73,8 @@ export class SmartTableComponent implements OnInit {
     if (
       updatedExpense.description !== this.expenses[rowIdx].description ||
       updatedExpense.amount !== this.expenses[rowIdx].amount ||
-      updatedExpense.date.toDateString() !==
-        this.expenses[rowIdx].date.toDateString() ||
+      new Date(updatedExpense.date).toDateString() !==
+        new Date(this.expenses[rowIdx].date).toDateString() ||
       updatedExpense.categories.toString() !==
         this.expenses[rowIdx].categories.toString()
     ) {
