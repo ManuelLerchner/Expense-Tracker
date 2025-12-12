@@ -19,7 +19,7 @@ export class ChartService {
   async loadExpenses() {
     let dbData: Expense[] = await this.expensesService
       .getExpensesForCurrentUser()
-      .toPromise();
+      .toPromise() || [];
 
     let sortedData = dbData.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();

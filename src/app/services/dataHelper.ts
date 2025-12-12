@@ -5,7 +5,7 @@ export async function loadExpenses(expensesService: ExpensesService) {
   try {
     let expenses = await expensesService
       .getExpensesForCurrentUser()
-      .toPromise();
+      .toPromise() || [];
 
     let sortedExpenses = expenses.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();

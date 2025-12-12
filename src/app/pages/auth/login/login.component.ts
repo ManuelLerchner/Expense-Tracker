@@ -5,6 +5,7 @@ import { User } from 'src/app/models/User';
 import { AccountService } from 'src/app/services/account.service';
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss', '../shared.style.scss'],

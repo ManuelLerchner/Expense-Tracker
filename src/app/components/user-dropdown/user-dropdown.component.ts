@@ -4,6 +4,7 @@ import { AccountService } from './../../services/account.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 @Component({
+  standalone: false,
   selector: 'app-user-dropdown',
   templateUrl: './user-dropdown.component.html',
   styleUrls: ['./user-dropdown.component.scss'],

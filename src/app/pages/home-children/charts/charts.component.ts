@@ -12,6 +12,7 @@ import {
 } from '../../../services/dataHelper';
 
 @Component({
+  standalone: false,
   selector: 'app-charts',
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.scss', '../shared.style.scss'],

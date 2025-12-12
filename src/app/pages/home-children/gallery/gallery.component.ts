@@ -4,6 +4,7 @@ import { ExpensesService } from 'src/app/services/expenses.service';
 import { loadExpenses } from '../../../services/dataHelper';
 
 @Component({
+  standalone: false,
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss', '../shared.style.scss'],

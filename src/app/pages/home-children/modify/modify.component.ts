@@ -9,6 +9,7 @@ import { loadExpenses } from '../../../services/dataHelper';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
+  standalone: false,
   selector: 'app-add',
   templateUrl: './modify.component.html',
   styleUrls: ['./modify.component.scss', '../shared.style.scss'],
