@@ -5,6 +5,7 @@ import { User } from 'src/app/models/User';
 import { AccountService } from 'src/app/services/account.service';
 
 @Component({
+  standalone: false,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss', '../shared.style.scss'],

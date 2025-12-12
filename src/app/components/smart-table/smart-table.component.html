@@ -120,11 +120,11 @@
         </div>
         <ng-template #categoriesType>
           <mat-form-field>
-            <mat-chip-list #chipList>
+            <mat-chip-set #chipList>
               <mat-chip *ngFor="let category of expense.categories">{{
                 category
               }}</mat-chip>
-            </mat-chip-list>
+            </mat-chip-set>
           </mat-form-field>
         </ng-template>
       </td>

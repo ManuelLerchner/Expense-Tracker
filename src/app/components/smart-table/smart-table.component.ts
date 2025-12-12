@@ -14,6 +14,7 @@ import { StoredExpense } from 'src/app/models/StoredExpense';
 import { ExpensesService } from '../../services/expenses.service';
 
 @Component({
+  standalone: false,
   selector: 'app-smart-table',
   templateUrl: './smart-table.component.html',
   styleUrls: ['./smart-table.component.scss'],

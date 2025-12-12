@@ -8,6 +8,7 @@ import { ExpensesService } from 'src/app/services/expenses.service';
 import { loadExpenses } from '../../../services/dataHelper';
 
 @Component({
+  standalone: false,
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss', '../shared.style.scss'],

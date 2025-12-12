@@ -13,6 +13,7 @@ import {
 import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
+  standalone: false,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss', '../shared.style.scss'],

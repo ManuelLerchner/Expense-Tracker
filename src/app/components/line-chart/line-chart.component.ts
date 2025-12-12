@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import 'chartjs-adapter-moment';
 @Component({
+  standalone: false,
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
