@@ -1,0 +1,64 @@
+name: Build Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build project
+      run: npm run build
+
+    - name: Check if HTML output exists
+      run: |
+        if [ -f "dist/Expense-Tracker/index.html" ]; then
+          echo "✅ HTML output found: index.html exists"
+          ls -lh dist/Expense-Tracker/index.html
+        else
+          echo "❌ Error: index.html not found in dist/Expense-Tracker/"
+          exit 1
+        fi
+
+    - name: Verify HTML content
+      run: |
+        echo "Checking HTML output files:"
+        find dist/Expense-Tracker -name "*.html" -type f
+        
+        HTML_COUNT=$(find dist/Expense-Tracker -name "*.html" -type f | wc -l)
+        echo "Found $HTML_COUNT HTML file(s)"
+        
+        if [ $HTML_COUNT -gt 0 ]; then
+          echo "✅ Build produced HTML output successfully"
+        else
+          echo "❌ Error: No HTML files found in build output"
+          exit 1
+        fi
+
+    - name: Display build output structure
+      run: |
+        echo "Build output structure:"
+        ls -lh dist/Expense-Tracker/ || true
